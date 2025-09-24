@@ -1,22 +1,40 @@
 # AC215 Project
 
-Members: Kaylee Vo, Chloe Seo, Ben Nguyen, Patrick Nguyen
+Members: Kaylee Vo, Chloe Seo, Adrian Sarno
 
 ## Project Overview
 
-### Phase 1: Blood Pressure Prediction
-In phase 1 of the project, we build two models to predict the blood pressure of patients, an online model (dynamic dataset) and an offline model (static dataset). Blood pressure consists of systolic pressure and diastolic pressure (mmHg). We build a univariate, sequence-to-sequence LSTM model to forecast each blood pressure reading. The aim of the project is to use predictions for earlier clinician and nurse intervention. We simulate a real-time data feed by gradually adding records into the database on a fixed time interval. This creates an artificial time lag. To achieve real-time blood pressure readings on the dashboard, we will nowcast.
+### Phase 1: 
+
+Model 1:
+Mathematical Model 
+- vitaldb.com
+- join the outputs of the model into the synapse data
+
+Model 2:
+- outcome: binary-adverse effect
+- X: patient demographics
+- treatment: drug (binary)
+
+
 
 #### Data
-For our data, we use individual-level blood pressure data from VitalDB [1]. 
+- 
 
 #### Architecture
 TBD
 
-### Phase 2: Digital Twin
-In phase 2, we build a digital twin to anticipate a patient's reaction to treatment. We use clinical data, which gives patient-level covariates and the treatment effect of a given drug on blood pressure. 
+### Data Sources
 
+1. https://open.fda.gov/
+2. https://www.synapse.org/AccessRequirements:ID=syn39802574&TYPE=ENTITY
+3. clinicaltrials.gov
 
-### Sources
-
-1. VitalDB. (n.d.). Dataset : VitalDB. https://vitaldb.net/dataset/
+Tasks
+1. Background and problem statement
+- Chloe
+2. Data
+- Adrian, Kaylee, Chloe
+3. Scope and Objectives
+- Kaylee, Chloe
+ 
