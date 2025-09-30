@@ -21,8 +21,9 @@ Model 2:
 #### Data
 - 
 
-#### Architecture
-TBD
+#### Roadmap
+
+[Freeform Link](https://www.icloud.com/freeform/0db9G44YqBMWTqqoBc7AiSzVA#AC215_Roadmap)
 
 ### Data Sources
 
@@ -38,3 +39,18 @@ Tasks
 3. Scope and Objectives
 - Kaylee, Chloe
  
+## Kayle's Braindump (Ignore)
+
+Users
+- admin
+- different permission levels (doctor, nurse, non-medical staff, resident, student, etc)
+- developers
+
+Processes
+- hookup to vital monitors, these will generate a stream of data
+- real-time inference, continually update predictions
+- alerting system, notify medical staff when dosage is needed
+
+States
+- Model
+- VitalDB Data
