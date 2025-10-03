@@ -144,6 +144,8 @@ ENV/
 env.bak/
 venv.bak/
 wandb/
+*.parquet
+*.csv
 
 # Spyder project settings
 .spyderproject
