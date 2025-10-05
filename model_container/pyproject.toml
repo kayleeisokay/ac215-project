@@ -8,4 +8,5 @@ dependencies = [
     "gcsfs>=2025.9.0",
     "google-cloud-storage>=3.4.0",
     "pandas>=2.3.3",
+    "pyarrow==21.0.0",
 ]
