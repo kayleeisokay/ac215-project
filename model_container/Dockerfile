@@ -11,6 +11,10 @@ ENV PYTHONUNBUFFERED=1
 ENV UV_LINK_MODE=copy
 ENV UV_PROJECT_ENVIRONMENT=/home/app/.venv
 
+# prevent error reading parquet in pandas
+# https://kb.databricks.com/libraries/pyarrow-hotfix-breaking-change
+ENV DATABRICKS_DISABLE_AUTO_PYARROW_HOTFIX=True
+
 # Ensure we have an up to date baseline, install dependencies and
 # create a user so we don't run the app as root
 RUN set -ex; \
