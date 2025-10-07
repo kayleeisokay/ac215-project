@@ -52,6 +52,10 @@ def run():
         temp_location="gs://dosewisedb/tmp",
         staging_location="gs://dosewisedb/staging",
         job_name="clean-data-to-bq",
+        save_main_session=True,
+        requirements_file="requirements.txt",
+        network="default",
+        subnetwork="regions/us-central1/subnetworks/default",
     )
 
     with beam.Pipeline(options=options) as p:
