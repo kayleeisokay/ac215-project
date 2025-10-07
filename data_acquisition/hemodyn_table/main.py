@@ -19,12 +19,16 @@ def export_hemodyn_to_gcs(request):
         values_for_all_cases[case] = vals
 
     rows = []
-    for k, arr in values_for_all_cases.items():
-        for row in arr:
-            rows.append([k] + list(row))
+    for case_id, arr in values_for_all_cases.items():
+        # arr should be ordered in time; enumerate will give 1,2,3,... per case
+        for t_idx, row in enumerate(arr, start=1):
+            rows.append([case_id, t_idx] + list(row))
 
-    df = pd.DataFrame(rows, columns=["id"] + features)
-    df["time"] = range(1, len(df) + 1)
+    # DataFrame with time per id
+    df = pd.DataFrame(rows, columns=["id", "time"] + features)
+
+    # Ensure sorted by id,time and reset index
+    df = df.sort_values(["id", "time"]).reset_index(drop=True)
 
     # Generate timestamp
     timestamp = datetime.utcnow().strftime("%Y-%m-%d-%H-%M-%S")
