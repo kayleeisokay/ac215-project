@@ -20,5 +20,6 @@ docker run \
     --rm \
     --name baseline-model-container \
     -v "${SECRETS_PATH}:/app/dosewise-473716-9f4874e812d6.json" \
+    -v "$(pwd)":/app \
     -e GOOGLE_APPLICATION_CREDENTIALS=/app/dosewise-473716-9f4874e812d6.json \
     baseline-model -lc "source /home/app/.venv/bin/activate && python main.py"
