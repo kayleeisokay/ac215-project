@@ -1,18 +1,10 @@
 import apache_beam as beam
-from apache_beam.options.pipeline_options import PipelineOptions
+from apache_beam.options.pipeline_options import PipelineOptions, SetupOptions
 from google.cloud import storage
 import pandas as pd
-import pyarrow.parquet as pq
-import tempfile
 
 
-class CleanData(beam.DoFn):
-    def process(self, element):
-        # element is a dict (one row)
-        yield element
-
-
-def clean_parquet_to_dicts(parquet_path):
+def clean_parquet_to_dicts(parquet_path, sample_size=100):
     # Read parquet from GCS into pandas
     df = pd.read_parquet(parquet_path)
 
@@ -23,7 +15,9 @@ def clean_parquet_to_dicts(parquet_path):
     df["CO2"] = df.groupby("id")["CO2"].transform(lambda x: x.ffill().bfill())
     df["PHEN_RATE"] = df.groupby("id")["PHEN_RATE"].transform(lambda x: x.fillna(0))
 
-    # Convert to list of dicts for Beam
+    # Optional: sort by time
+    df = df.sort_values("time")
+
     return df.to_dict(orient="records")
 
 
@@ -42,8 +36,8 @@ def run():
     latest_parquet_path = get_latest_parquet_path(bucket_name, prefix)
     print("Using latest parquet file:", latest_parquet_path)
 
-    # Clean locally before sending to Beam
-    cleaned_records = clean_parquet_to_dicts(latest_parquet_path)
+    # Clean a small sample locally
+    cleaned_records = clean_parquet_to_dicts(latest_parquet_path, sample_size=100)
 
     options = PipelineOptions(
         runner="DataflowRunner",
@@ -51,12 +45,14 @@ def run():
         region="us-central1",
         temp_location="gs://dosewisedb/tmp",
         staging_location="gs://dosewisedb/staging",
-        job_name="clean-data-to-bq",
+        job_name="clean-data-sample",
         save_main_session=True,
-        requirements_file="requirements.txt",
-        network="default",
-        subnetwork="regions/us-central1/subnetworks/default",
+        experiments=["use_runner_v2"],
+        sdk_container_image="apache/beam_python3.9_sdk:2.58.0",
+        flink_version="1.18",
     )
+
+    options.view_as(SetupOptions).requirements_file = "requirements.txt"
 
     with beam.Pipeline(options=options) as p:
         (
