@@ -45,7 +45,7 @@ def run():
         region="us-central1",
         temp_location="gs://dosewisedb/tmp",
         staging_location="gs://dosewisedb/staging",
-        job_name="clean-data-sample",
+        job_name="bq-hemodyn-table",
         save_main_session=True,
         experiments=["use_runner_v2"],
         sdk_container_image="apache/beam_python3.9_sdk:2.58.0",
