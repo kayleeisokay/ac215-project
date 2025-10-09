@@ -1,0 +1,3 @@
+pandas==2.1.1
+pyarrow==12.0.1
+apache-beam[gcp]==2.58.0
