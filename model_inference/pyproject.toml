@@ -1,0 +1,15 @@
+[project]
+name = "model-inference"
+version = "0.1.0"
+dependencies = [
+    "google-cloud-storage",
+    "torch",
+    "numpy", 
+    "scikit-learn",
+    "fastapi",
+    "uvicorn",
+]
+
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
